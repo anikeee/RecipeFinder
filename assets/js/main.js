@@ -1,6 +1,6 @@
 // Spoonacular API playground
 var ingredients = ["Apple", "Pear"];
-var rapidKey = "YOUR_RAPIDAPI_KEY"; // replace this with your actual key
+
 const settings1 = {
 	"async": true,
 	"crossDomain": true,
