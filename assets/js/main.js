@@ -1,9 +1,10 @@
 // Spoonacular API playground
-ingredients = ["Apple", "Pear"]
+var ingredients = ["Apple", "Pear"];
+var rapidKey = "YOUR_RAPIDAPI_KEY"; // replace this with your actual key
 const settings1 = {
 	"async": true,
 	"crossDomain": true,
-	"url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "number=5&ignorePantry=true&ranking=1",
+	"url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients.join(",") + "&number=5&ignorePantry=true&ranking=1",
 	"method": "GET",
 	"headers": {
 		"X-RapidAPI-Key": rapidKey,
@@ -13,18 +14,14 @@ const settings1 = {
 
 $.ajax(settings1).done(function (response1) {
 	console.log(response1);
-
-
+	var recipeImage = response1.image;
 });
 
-var recipeImage = response1.image
-
 //Edamam API playground
-
 const settings2 = {
 	"async": true,
 	"crossDomain": true,
-	"url": "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=carbonara",
+	"url": "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=" + ingredients.join(","),
 	"method": "GET",
 	"headers": {
 		"X-RapidAPI-Key": rapidKey,
