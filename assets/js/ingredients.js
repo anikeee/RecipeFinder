@@ -1,18 +1,19 @@
 let ingredients = [];
 function addIngredient() {
-    let input = document.getElementById("input1").value;
+    let input = document.getElementById("ingredient-input").value;
     ingredients.push(input);
     console.log(ingredients);
 }
 
+
 // Save ingredients to local storage
 function saveIngredients() {
-    const input1 = document.getElementById("input1").value;
+    const input = document.getElementById("ingredient-input").value;
     let ingredients = [];
     if (localStorage.getItem("ingredients")) {
         ingredients = JSON.parse(localStorage.getItem("ingredients"));
     }
-    ingredients.push(input1);
+    ingredients.push(input);
     localStorage.setItem("ingredients", JSON.stringify(ingredients));
 }
 
@@ -26,6 +27,6 @@ function retrieveIngredients() {
 
 
 // Add click event to "Add Ingredient" button
-document.getElementById("addIngredient").addEventListener("click", function() {
+document.getElementById("add-ingredient-btn").addEventListener("click", function() {
     saveIngredients();
 });
