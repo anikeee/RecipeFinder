@@ -1,6 +1,28 @@
 // Spoonacular API playground
-var ingredients = ["Apple", "Pear"];
 
+window.onload = function() {
+	const form = document.querySelector("form");
+	const input = form.querySelector("#input1");
+	const ingredients = [];
+
+	form.addEventListener("submit", function(event) {
+		event.preventDefault();
+		ingredients.push(input.value);
+		input.value = "";
+	});
+
+	const ingredientsList = document.querySelector("#ingredients-list");
+	function updateIngredientsList() {
+		ingredientsList.innerHTML = "";
+		ingredients.forEach(function(ingredient) {
+			const li = document.createElement("li");
+			li.textContent = ingredient;
+			ingredientsList.appendChild(li);
+		});
+	}
+
+	updateIngredientsList();
+};
 const settings1 = {
 	"async": true,
 	"crossDomain": true,
