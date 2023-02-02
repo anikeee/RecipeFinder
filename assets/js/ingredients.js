@@ -30,3 +30,4 @@ function retrieveIngredients() {
 document.getElementById("add-ingredient-btn").addEventListener("click", function() {
     saveIngredients();
 });
+

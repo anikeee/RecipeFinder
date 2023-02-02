@@ -15,12 +15,23 @@ window.onload = function() {
 
     function updateIngredientsList() {
         ingredientsList.innerHTML = "";
-        ingredients.forEach(function(ingredient) {
+        ingredients.forEach(function(ingredient, index) {
             const li = document.createElement("li");
             li.textContent = ingredient;
+
+            // Add "Remove" button
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.addEventListener("click", function() {
+                ingredients.splice(index, 1);
+                updateIngredientsList();
+            });
+            li.appendChild(removeBtn);
+
             ingredientsList.appendChild(li);
         });
     }
 
     updateIngredientsList();
 };
+
