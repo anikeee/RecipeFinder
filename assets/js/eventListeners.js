@@ -7,7 +7,7 @@ window.onload = function() {
         event.preventDefault();
         ingredients.push(input.value);
         input.value = "";
-        saveIngredients();
+        localStorage.setItem("ingredients", JSON.stringify(ingredients));
         updateIngredientsList();
     });
 
@@ -18,16 +18,14 @@ window.onload = function() {
         ingredients.forEach(function(ingredient, index) {
             const li = document.createElement("li");
             li.textContent = ingredient;
-
-            // Add "Remove" button
-            const removeBtn = document.createElement("button");
-            removeBtn.textContent = "Remove";
-            removeBtn.addEventListener("click", function() {
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.addEventListener("click", function() {
                 ingredients.splice(index, 1);
+                localStorage.setItem("ingredients", JSON.stringify(ingredients));
                 updateIngredientsList();
             });
-            li.appendChild(removeBtn);
-
+            li.appendChild(removeButton);
             ingredientsList.appendChild(li);
         });
     }
