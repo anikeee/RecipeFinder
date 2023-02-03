@@ -19,10 +19,16 @@ function saveIngredients() {
 
 // Retrieve saved ingredients from local storage
 function retrieveIngredients() {
+    let ingredients = [];
     if (localStorage.getItem("ingredients")) {
-        return JSON.parse(localStorage.getItem("ingredients"));
+        ingredients = JSON.parse(localStorage.getItem("ingredients"));
     }
-    return [];
+    if (input.value.trim() !== "") {
+        ingredients.push(input.value.trim());
+        localStorage.setItem("ingredients", JSON.stringify(ingredients));
+        input.value = "";
+    }
+    return ingredients;
 }
 
 

@@ -5,10 +5,12 @@ window.onload = function() {
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
-        ingredients.push(input.value);
-        input.value = "";
-        localStorage.setItem("ingredients", JSON.stringify(ingredients));
-        updateIngredientsList();
+        if (input.value.length > 0) {
+            ingredients.push(input.value);
+            input.value = "";
+            localStorage.setItem("ingredients", JSON.stringify(ingredients));
+            updateIngredientsList();
+        }
     });
 
     const ingredientsList = document.querySelector("#ingredient-list");
@@ -31,5 +33,9 @@ window.onload = function() {
     }
 
     updateIngredientsList();
+
+    //showing data from api handler
+
+
 };
 

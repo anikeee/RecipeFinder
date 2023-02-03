@@ -1,4 +1,5 @@
 // Spoonacular API playground
+let data = [];
 // Retrieve saved ingredients from local storage
 function retrieveIngredients() {
 	if (localStorage.getItem("ingredients")) {
@@ -22,8 +23,12 @@ document.getElementById("search-btn").addEventListener("click", function() {
 	};
 
 	$.ajax(settings1).done(function (response1) {
-		console.log(response1);
+
 		var recipeImage = response1.image;
+		// console.log(recipeImage);
+		data = response1;
+		$.ajax(settings1).done(function (response1) {});
+		console.log(data);
 	});
 
 	//Edamam API playground
@@ -42,3 +47,5 @@ document.getElementById("search-btn").addEventListener("click", function() {
 		console.log(response2);
 	});
 });
+window.data = data;
+console.log(window.data);
