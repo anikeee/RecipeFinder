@@ -1,51 +1,82 @@
 // Spoonacular API playground
 let data = [];
+
 // Retrieve saved ingredients from local storage
 function retrieveIngredients() {
-	if (localStorage.getItem("ingredients")) {
-		return JSON.parse(localStorage.getItem("ingredients"));
-	}
-	return [];
+    if (localStorage.getItem("ingredients")) {
+        return JSON.parse(localStorage.getItem("ingredients"));
+    }
+    return [];
 }
 
 // Search button click event
-document.getElementById("search-btn").addEventListener("click", function() {
-	const ingredients = retrieveIngredients();
-	const settings1 = {
-		"async": true,
-		"crossDomain": true,
-		"url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients.join(",") + "&number=5&ignorePantry=true&ranking=1",
-		"method": "GET",
-		"headers": {
-			"X-RapidAPI-Key": rapidKey,
-			"X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
-		}
-	};
+document.getElementById("search-btn").addEventListener("click", function () {
+    const ingredients = retrieveIngredients();
+    const settings1 = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients.join(",") + "&number=5&ignorePantry=true&ranking=1",
+        "method": "GET",
+        "headers": {
+            "X-RapidAPI-Key": rapidKey,
+            "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+        }
+    };
 
-	$.ajax(settings1).done(function (response1) {
+    $.ajax(settings1).done(function (response1) {
+        var recipeSection = document.getElementById("recepie-section");
+        recipeSection.innerHTML = "";
 
-		var recipeImage = response1.image;
-		// console.log(recipeImage);
-		data = response1;
-		$.ajax(settings1).done(function (response1) {});
-		console.log(data);
-	});
+        response1.forEach(function (recipe) {
+            var recipeCard = `
+            <div class="container">
+             <div class="row">
+			<div class="card my-3" style="flex: 1;">
+				<img src="${recipe.image}" class="card-img-top" height="100px" width="75px">
+				<div class="card-body">
+					<h5 class="card-title">${recipe.title}</h5>
+					<p class="card-text">${recipe.ingredients}</p>
+					<a href="${recipe.sourceUrl}" class="btn btn-primary">Go to recipe</a>
+				</div>
+			</div>
+			<div>
+			<div>
+		`;
+            recipeSection.innerHTML += recipeCard;
+        });
+    });
 
-	//Edamam API playground
-	const settings2 = {
-		"async": true,
-		"crossDomain": true,
-		"url": "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=" + ingredients.join(","),
-		"method": "GET",
-		"headers": {
-			"X-RapidAPI-Key": rapidKey,
-			"X-RapidAPI-Host": "edamam-food-and-grocery-database.p.rapidapi.com"
-		}
-	};
+    //Edamam API playground
+    const settings2 = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=" + ingredients.join(","),
+        "method": "GET",
+        "headers": {
+            "X-RapidAPI-Key": rapidKey,
+            "X-RapidAPI-Host": "edamam-food-and-grocery-database.p.rapidapi.com"
+        }
+    };
 
-	$.ajax(settings2).done(function (response2) {
-		console.log(response2);
-	});
+    $.ajax(settings2).done(function (response2) {
+        var nutritionSection = document.getElementById("nutrition-section");
+        console.log(response2);
+        response2.parsed.forEach(function (food) {
+            var nutritionCard = `
+    <div class="card my-3">
+      <div class="card-body">
+        <h5 class="card-title">${food.food.label}</h5>
+        <p class="card-text">Energy: ${food.food.nutrients.ENERC_KCAL} kcal</p>
+        <p class="card-text">Protein: ${food.food.nutrients.PROCNT} g</p>
+        <p class="card-text">Fat: ${food.food.nutrients.FAT} g</p>
+        <p class="card-text">Carbohydrates: ${food.food.nutrients.CHOCDF} g</p>
+        <p class="card-text">Fiber: ${food.food.nutrients.FIBTG} g</p>
+      </div>
+    </div>
+  `;
+            nutritionSection.innerHTML += nutritionCard;
+        });
+
+    });
 });
-window.data = data;
-console.log(window.data);
+
