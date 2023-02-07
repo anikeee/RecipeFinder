@@ -15,7 +15,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
     const settings1 = {
         "async": true,
         "crossDomain": true,
-        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients.join(",") + "&number=5&ignorePantry=true&ranking=1",
+        "url": "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients.join(",") + "&number=6&ignorePantry=true&ranking=1",
         "method": "GET",
         "headers": {
             "X-RapidAPI-Key": rapidKey,
@@ -24,25 +24,26 @@ document.getElementById("search-btn").addEventListener("click", function () {
     };
 
     $.ajax(settings1).done(function (response1) {
-        var recipeSection = document.getElementById("recepie-section");
-        recipeSection.innerHTML = "";
-
+        //var recipeSection = document.getElementById("recipe-section");
+        //recipeSection.innerHTML = "";
+		let i = 1;
         response1.forEach(function (recipe) {
+			var recipeSection = document.getElementById("recipe-section-" + [i]);
+			recipeSection.innerHTML = "";
             var recipeCard = `
-            <div class="container">
-             <div class="row">
-			<div class="card my-3" style="flex: 1;">
-				<img src="${recipe.image}" class="card-img-top" height="100px" width="75px">
+			<div class="card my-3 text-center" style="flex: 1;">
+				<img src="${recipe.image}" class="card-img-top mx-auto d-block" width ="1000">
 				<div class="card-body">
 					<h5 class="card-title">${recipe.title}</h5>
 					<p class="card-text">${recipe.ingredients}</p>
 					<a href="${recipe.sourceUrl}" class="btn btn-primary">Go to recipe</a>
 				</div>
 			</div>
-			<div>
-			<div>
+			
+			
 		`;
             recipeSection.innerHTML += recipeCard;
+			i++;
         });
     });
 
