@@ -19,12 +19,14 @@ window.onload = function() {
             const li = document.createElement("li");
             li.textContent = ingredient;
             const removeButton = document.createElement("button");
+            removeButton.setAttribute("class", "btn btn-primary m-2");
             removeButton.textContent = "Remove";
             removeButton.addEventListener("click", function() {
                 ingredients.splice(index, 1);
                 localStorage.setItem("ingredients", JSON.stringify(ingredients));
                 updateIngredientsList();
             });
+            
             li.appendChild(removeButton);
             ingredientsList.appendChild(li);
         });
@@ -33,3 +35,4 @@ window.onload = function() {
     updateIngredientsList();
 };
 
+removeButton.addClass("btn btn-primary");
