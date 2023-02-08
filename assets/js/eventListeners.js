@@ -6,7 +6,10 @@ window.onload = function() {
     form.addEventListener("submit", function(event) {
         event.preventDefault();
         if (input.value.length > 0) {
-            ingredients.push(input.value);
+            let inputIngredients = input.value.split(",");
+            inputIngredients.forEach(function(ingredient) {
+                ingredients.push(ingredient.trim());
+            });
             input.value = "";
             localStorage.setItem("ingredients", JSON.stringify(ingredients));
             updateIngredientsList();
@@ -28,10 +31,11 @@ window.onload = function() {
                 localStorage.setItem("ingredients", JSON.stringify(ingredients));
                 updateIngredientsList();
             });
-            
+
             li.appendChild(removeButton);
             ingredientsList.appendChild(li);
         });
+        console.log(ingredients);
     }
 
     updateIngredientsList();
@@ -40,5 +44,3 @@ window.onload = function() {
 
 
 };
-
-removeButton.addClass("btn btn-primary");

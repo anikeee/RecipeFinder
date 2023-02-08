@@ -45,7 +45,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
             recipeSection.innerHTML += recipeCard;
         });
     });
-
+    console.log(ingredients);
     //Edamam API playground
     const settings2 = {
         "async": true,
@@ -59,24 +59,28 @@ document.getElementById("search-btn").addEventListener("click", function () {
     };
 
     $.ajax(settings2).done(function (response2) {
-        var nutritionSection = document.getElementById("nutrition-section");
+        let nutritionSection = document.getElementById("nutrition-section");
         console.log(response2);
-        response2.parsed.forEach(function (food) {
-            var nutritionCard = `
-    <div class="card my-3">
-      <div class="card-body">
-        <h5 class="card-title">${food.food.label}</h5>
-        <p class="card-text">Energy: ${food.food.nutrients.ENERC_KCAL} kcal</p>
-        <p class="card-text">Protein: ${food.food.nutrients.PROCNT} g</p>
-        <p class="card-text">Fat: ${food.food.nutrients.FAT} g</p>
-        <p class="card-text">Carbohydrates: ${food.food.nutrients.CHOCDF} g</p>
-        <p class="card-text">Fiber: ${food.food.nutrients.FIBTG} g</p>
-      </div>
-    </div>
+        nutritionSection.innerHTML = "";
+        if (Array.isArray(response2.parsed) && response2.parsed.length) {
+            response2.parsed.forEach(function (food) {
+                console.log(food);
+                let nutritionCard = `
+            <div class="card my-3">
+              <div class="card-body">
+                <h5 class="card-title">${food.food.label}</h5>
+                <p class="card-text">Energy: ${food.food.nutrients.ENERC_KCAL || 0} kcal</p>
+                <p class="card-text">Protein: ${food.food.nutrients.PROCNT || 0} g</p>
+                <p class="card-text">Fat: ${food.food.nutrients.FAT || 0} g</p>
+                <p class="card-text">Carbohydrates: ${food.food.nutrients.CHOCDF || 0} g</p>
+                <p class="card-text">Fiber: ${food.food.nutrients.FIBTG || 0} g</p>
+              </div>
+            </div>
   `;
-            nutritionSection.innerHTML += nutritionCard;
-        });
-
+                nutritionSection.innerHTML += nutritionCard;
+            });
+        }
     });
+
 });
 
