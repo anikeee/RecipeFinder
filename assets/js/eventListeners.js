@@ -5,10 +5,15 @@ window.onload = function() {
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
-        ingredients.push(input.value);
-        input.value = "";
-        localStorage.setItem("ingredients", JSON.stringify(ingredients));
-        updateIngredientsList();
+        if (input.value.length > 0) {
+            let inputIngredients = input.value.split(",");
+            inputIngredients.forEach(function(ingredient) {
+                ingredients.push(ingredient.trim());
+            });
+            input.value = "";
+            localStorage.setItem("ingredients", JSON.stringify(ingredients));
+            updateIngredientsList();
+        }
     });
 
     const ingredientsList = document.querySelector("#ingredient-list");
@@ -19,17 +24,23 @@ window.onload = function() {
             const li = document.createElement("li");
             li.textContent = ingredient;
             const removeButton = document.createElement("button");
+            removeButton.setAttribute("class", "btn btn-primary m-2");
             removeButton.textContent = "Remove";
             removeButton.addEventListener("click", function() {
                 ingredients.splice(index, 1);
                 localStorage.setItem("ingredients", JSON.stringify(ingredients));
                 updateIngredientsList();
             });
+
             li.appendChild(removeButton);
             ingredientsList.appendChild(li);
         });
+        console.log(ingredients);
     }
 
     updateIngredientsList();
-};
 
+    //showing data from api handler
+
+
+};
