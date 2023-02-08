@@ -29,6 +29,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
         let i = 1;
 
         response1.forEach(function (recipe) {
+            console.log(recipe);
             var recipeSection = document.getElementById("recipe-section-" + [i]);
             recipeSection.innerHTML = "";
             var recipeCard = `
@@ -36,8 +37,8 @@ document.getElementById("search-btn").addEventListener("click", function () {
 				<img src="${recipe.image}" class="card-img-top mx-auto d-block" width ="1000">
 				<div class="card-body">
 					<h5 class="card-title">${recipe.title}</h5>
-					<p class="card-text">${recipe.ingredients}</p>
-					<a href="${recipe.sourceUrl}" class="btn btn-primary">Go to recipe</a>
+					<p class="card-text">Likes : ${recipe.likes}</p>
+					<a href="${recipe.sourceUrl}" class="btn btn-primary">Show recipe</a>
 				</div>
 			</div>
 			
@@ -51,13 +52,27 @@ document.getElementById("search-btn").addEventListener("click", function () {
 
     let numIngredients = ingredients.length;
     const mainNutrition = document.getElementById("mainNutrition");
+
+// Calculate the number of columns needed for nutrition sections
+    const numColumns = 2;
+
+// Create the number of nutrition sections needed
     for (let i = 1; i <= numIngredients; i++) {
         let nutritionSection = document.createElement("div");
         nutritionSection.className = "card-body";
         nutritionSection.id = "nutrition-section-" + i;
-        mainNutrition.appendChild(nutritionSection);
 
+        // Add the nutrition section to the main nutrition section
+        if (i % numColumns === 1) {
+            let row = document.createElement("div");
+            row.className = "row";
+            row.appendChild(nutritionSection);
+            mainNutrition.appendChild(row);
+        } else {
+            mainNutrition.lastChild.appendChild(nutritionSection);
+        }
     }
+
     console.log(numIngredients);
     //Edamam API playground
     for (let i = 1; i <= numIngredients; i++) {
