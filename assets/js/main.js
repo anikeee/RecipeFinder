@@ -26,10 +26,10 @@ document.getElementById("search-btn").addEventListener("click", function () {
     $.ajax(settings1).done(function (response1) {
         //var recipeSection = document.getElementById("recipe-section");
         //recipeSection.innerHTML = "";
-		let i = 1;
+        let i = 1;
         response1.forEach(function (recipe) {
-			var recipeSection = document.getElementById("recipe-section-" + [i]);
-			recipeSection.innerHTML = "";
+            var recipeSection = document.getElementById("recipe-section-" + [i]);
+            recipeSection.innerHTML = "";
             var recipeCard = `
 			<div class="card my-3 text-center" style="flex: 1;">
 				<img src="${recipe.image}" class="card-img-top mx-auto d-block" width ="1000">
@@ -43,7 +43,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
 			
 		`;
             recipeSection.innerHTML += recipeCard;
-			i++;
+            i++;
         });
     });
 
@@ -60,11 +60,13 @@ document.getElementById("search-btn").addEventListener("click", function () {
     };
 
     $.ajax(settings2).done(function (response2) {
-        var nutritionSection = document.getElementById("nutrition-section");
+        let i = 1;
+        ;
         console.log(response2);
         response2.parsed.forEach(function (food) {
+            var nutritionSection = document.getElementById("nutrition-section-" + [i]);
             var nutritionCard = `
-    <div class="card my-3">
+    <div class="card">
       <div class="card-body">
         <h5 class="card-title">${food.food.label}</h5>
         <p class="card-text">Energy: ${food.food.nutrients.ENERC_KCAL} kcal</p>
@@ -76,6 +78,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
     </div>
   `;
             nutritionSection.innerHTML += nutritionCard;
+            i++;
         });
 
     });
