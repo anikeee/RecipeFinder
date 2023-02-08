@@ -27,6 +27,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
         //var recipeSection = document.getElementById("recipe-section");
         //recipeSection.innerHTML = "";
         let i = 1;
+
         response1.forEach(function (recipe) {
             var recipeSection = document.getElementById("recipe-section-" + [i]);
             recipeSection.innerHTML = "";
@@ -45,46 +46,56 @@ document.getElementById("search-btn").addEventListener("click", function () {
             recipeSection.innerHTML += recipeCard;
             i++;
         });
+
     });
 
-    //Edamam API playground
-    const settings2 = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=" + ingredients.join(","),
-        "method": "GET",
-        "headers": {
-            "X-RapidAPI-Key": rapidKey,
-            "X-RapidAPI-Host": "edamam-food-and-grocery-database.p.rapidapi.com"
-        }
-    };
+    let numIngredients = ingredients.length;
+    const mainNutrition = document.getElementById("mainNutrition");
+    for (let i = 1; i <= numIngredients; i++) {
+        let nutritionSection = document.createElement("div");
+        nutritionSection.className = "card-body";
+        nutritionSection.id = "nutrition-section-" + i;
+        mainNutrition.appendChild(nutritionSection);
 
-    $.ajax(settings2).done(function (response2) {
-        let i = 1;
-        ;
-        let nutritionSection = document.getElementById("nutrition-section");
-        console.log(response2);
-        nutritionSection.innerHTML = "";
-        if (Array.isArray(response2.parsed) && response2.parsed.length) {
+    }
+    console.log(numIngredients);
+    //Edamam API playground
+    for (let i = 1; i <= numIngredients; i++) {
+        let ingredient = ingredients[i - 1];
+
+        const settings2 = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=" + ingredient,
+            "method": "GET",
+            "headers": {
+                "X-RapidAPI-Key": rapidKey,
+                "X-RapidAPI-Host": "edamam-food-and-grocery-database.p.rapidapi.com"
+            }
+        };
+
+        $.ajax(settings2).done(function (response2) {
+
+            let nutritionSection = document.getElementById("nutrition-section-" + i);
+            nutritionSection.innerHTML = "";
+
+            console.log(response2);
             response2.parsed.forEach(function (food) {
-                console.log(food);
                 let nutritionCard = `
             <div class="card my-3">
               <div class="card-body">
                 <h5 class="card-title">${food.food.label}</h5>
-                <p class="card-text">Energy: ${food.food.nutrients.ENERC_KCAL || 0} kcal</p>
-                <p class="card-text">Protein: ${food.food.nutrients.PROCNT || 0} g</p>
-                <p class="card-text">Fat: ${food.food.nutrients.FAT || 0} g</p>
-                <p class="card-text">Carbohydrates: ${food.food.nutrients.CHOCDF || 0} g</p>
-                <p class="card-text">Fiber: ${food.food.nutrients.FIBTG || 0} g</p>
+                <p class="card-text">Energy: ${food.food.nutrients.ENERC_KCAL} kcal</p>
+                <p class="card-text">Protein: ${food.food.nutrients.PROCNT} g</p>
+                <p class="card-text">Fat: ${food.food.nutrients.FAT} g</p>
+                <p class="card-text">Carbohydrates: ${food.food.nutrients.CHOCDF} g</p>
+                <p class="card-text">Fiber: ${food.food.nutrients.FIBTG} g</p>
               </div>
             </div>
-  `;
-            nutritionSection.innerHTML += nutritionCard;
-            i++;
+            `;
+                nutritionSection.innerHTML += nutritionCard;
+            });
         });
-
-    });
+    }
 
 });
-
