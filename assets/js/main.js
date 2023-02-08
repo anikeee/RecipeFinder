@@ -38,7 +38,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
 				<div class="card-body">
 					<h5 class="card-title">${recipe.title}</h5>
 					<p class="card-text">Likes : ${recipe.likes}</p>
-					<a href="${recipe.sourceUrl}" class="btn btn-primary">Show recipe</a>
+					<a href="#" class="btn btn-primary">Show recipe</a>
 				</div>
 			</div>
 			
