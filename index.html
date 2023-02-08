@@ -1,123 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
     <title>RecipEasy - reverse recipe search</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         .row {
-        display: flex;
-        flex-wrap: wrap;
-    }
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .card-img-top {
+            width: 40%
+        }
     </style>
     </div>
 </head>
+
 <body>
-<!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">RecipEasy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page content-->
     <div class="container">
-        <a class="navbar-brand" href="#">Recipe Easy</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="text-center mt-5">
+            <h1>RecipEasy</h1>
+
         </div>
     </div>
-</nav>
-<!-- Page content-->
-<div class="container">
-    <div class="text-center mt-5">
-        <h1>Recipe Easy</h1>
-
-    </div>
-</div>
 
 
-<!-- Search bar and buttons -->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        <label for="exampleInputEmail1" class="form-label">Ingredient Search</label></strong>
+    <!-- Search bar and buttons -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <label for="exampleInputEmail1" class="form-label">Ingredient Search</label></strong>
+                    </div>
+                    <div class="card-body">
+                        <form id="ingredient-form">
+                            <div class="text-center mt-5">
+                                <label for="ingredient-input" class="form-label">Ingredient search</label>
+                                <input type="text" class="form-control" id="ingredient-input">
+                                <br>
+                                <button type="submit" class="btn btn-primary" id="add-ingredient-btn">Add Ingredient
+                                </button>
+                                <button type="search" class="btn btn-primary" id="search-btn">Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form id="ingredient-form">
-                        <div class="text-center mt-5">
-                            <label for="ingredient-input" class="form-label">Ingredient search</label>
-                            <input type="text" class="form-control" id="ingredient-input">
-                            <br>
-                            <button type="submit" class="btn btn-primary" id="add-ingredient-btn">Add Ingredient
-                            </button>
-                            <button type="search" class="btn btn-primary" id="search-btn">Search</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div id="ingredient-list" class="text-center mt-5"></div>
+
+    <!-- Row to handle retrieved recepies -->
+    <div class="container">
+        <div class="row">
+            <div class="col-m-12">
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <strong>
+                            <i class="fa fa-table"></i>Top Recipes </strong>
+                    </div>
+                    <!-- Card body below to hold recipe images and links -->
+                    <div class="row align-items-center">
+                        <div class="col" id="recipe-section-1"></div>
+                        <div class="col" id="recipe-section-2"></div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col" id="recipe-section-3"></div>
+                        <div class="col" id="recipe-section-4"></div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col" id="recipe-section-5"></div>
+                        <div class="col" id="recipe-section-6"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-m-12">
+                    <br>
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>
+                                <i class="fa fa-table"></i>Nutrition Information </strong>
                         </div>
-                    </form>
+                        <!-- Card body below to hold nutrition information -->
+                        <div class="row align-items-center">
+                            <div class="col" id="nutrition-section-1"></div>
+                            <div class="col" id="nutrition-section-2"></div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col" id="nutrition-section-3"></div>
+                            <div class="col" id="rutrition-section-4"></div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col" id="nutrition-section-5"></div>
+                            <div class="col" id="nutrition-section-6"></div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col" id="nutrition-section-7"></div>
+                            <div class="col" id="nutrition-section-8"></div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col" id="nutrition-section-9"></div>
+                            <div class="col" id="nutrition-section-10"></div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col" id="nutrition-section-11"></div>
+                            <div class="col" id="nutrition-section-12"></div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Card body below to hold nutrition information -->
+
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-<div id="ingredient-list" class="text-center mt-5"></div>
-
-<!-- Row to handle retrieved recepies -->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    <strong>
-                        <i class="fa fa-table"></i>Top Recipes </strong>
-                </div>
-                <!-- Card body below to hold recepie images and links -->
-                <div class="card-body" id="recepie-section"></div>
-                <div class="card-header">
-                    <strong>
-                        <i class="fa fa-table"></i>Nutrition Information
-                    </strong>
-                </div>
-                <!-- Card body below to hold nutrition information -->
-                <div class="card-body" id="nutrition-section"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="assets/js/keys.js"></script>
-<script src="assets/js/ingredients.js"></script>
-<script src="assets/js/eventListeners.js"></script>
-<script src="assets/js/main.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="assets/js/keys.js"></script>
+    <script src="assets/js/ingredients.js"></script>
+    <script src="assets/js/eventListeners.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>
